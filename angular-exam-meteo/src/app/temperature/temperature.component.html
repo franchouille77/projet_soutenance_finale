@@ -1,0 +1,18 @@
+<label for="worldCityName">World City Name : </label>
+<input id="worldCityName" type="text" [formControl]="worldCityName" />
+<button (click)="getCity()">Check city</button>
+
+<div *ngIf="worldCity">
+  <p>
+    Ville : {{ worldCity.city }}<br />
+    Latitude : {{ worldCity.lat }}<br />
+    Longitude : {{ worldCity.lng }}<br />
+    Code pays : {{ worldCity.iso2 }}<br />
+    Nom pays : {{ worldCity.country }}<br />
+  </p>
+</div>
+<br>
+
+<label for="temperatureValue">Temperature Value : </label>
+<input id="temperatureValue" type="text" [formControl]="temperatureValue" />
+<button (click)="addTemperature()">Add Temperature</button>

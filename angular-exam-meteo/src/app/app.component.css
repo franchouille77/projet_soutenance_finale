@@ -1,0 +1,21 @@
+.mat-tab-link {
+  height: 48px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 16px;
+  border-radius: 0;
+  margin-right: 16px;
+  color: rgba(0, 0, 0, 0.54);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mat-tab-link:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.mat-tab-link[active] {
+  color: #1e88e5;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-bottom: 2px solid #1e88e5;
+}

@@ -1,0 +1,13 @@
+<h2>Details Temperature séléctionnée:</h2>
+<div>
+  <p>
+    Temperature id : {{ temp?.id }}<br />
+    Date et heure du relevé : {{ temp?.timestamp }}<br />
+    Temperature : {{ temp?.value }}°C<br />
+    Ville : {{ temp?.worldCity?.city }}<br />
+    Latitude : {{ temp?.worldCity?.lat }}<br />
+    Longitude : {{ temp?.worldCity?.lng }}<br />
+    Code pays : {{ temp?.worldCity?.iso2 }}<br />
+    Nom pays : {{ temp?.worldCity?.country }}<br />
+  </p>
+</div>

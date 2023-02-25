@@ -1,0 +1,9 @@
+<h2>List Temperatures BDD:</h2>
+<div>
+  <li class="my-link" *ngFor="let temp of temperatures">
+    <a (click)="goToDetails(temp)" >
+      id: {{ temp.id }}, value: {{ temp.value }}, timestamp:
+      {{ temp.timestamp }}, worldCity: {{ temp.worldCity.city }}
+    </a>
+  </li>
+</div>

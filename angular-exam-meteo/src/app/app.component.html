@@ -1,0 +1,16 @@
+<h1>{{ title }} app is running!</h1>
+<nav mat-tab-nav-bar>
+  <button
+    mat-tab-link
+    *ngFor="let route of routes"
+    [routerLink]="route.link"
+    routerLinkActive
+    #rla="routerLinkActive"
+    [active]="rla.isActive"
+  >
+    {{ route.label }}
+</button>
+</nav>
+<mat-tab-nav-panel>
+  <router-outlet> </router-outlet>
+</mat-tab-nav-panel>
