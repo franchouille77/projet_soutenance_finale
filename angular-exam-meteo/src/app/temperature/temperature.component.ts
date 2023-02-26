@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Temperature } from '../interfaces/temperature';
 import { MeteoService } from '../services/meteo.service';
 import { ApiBddService } from '../services/api-bdd.service';
@@ -42,7 +42,7 @@ export class TemperatureComponent {
           next: (data) => {
             if (data.id == null)
               this.openSnackBar(
-                "La ville existe chez OpenWeather mais n'est pas enregistrée en BDD. Ajoutez une ville pour pouvoir y ajouter une température!",
+                "La ville existe chez OpenWeather mais n'est pas enregistrée en BDD. Ajoutez une ville pour pouvoir ajouter une température dans cette ville!",
                 10000
               );
             else this.worldCity = data;

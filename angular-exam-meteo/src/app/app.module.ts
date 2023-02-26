@@ -13,9 +13,13 @@ import { TemperaturesListComponent } from './temperatures-list/temperatures-list
 import { TemperaturesDetailsComponent } from './temperatures-details/temperatures-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
+import { CdkTableModule } from '@angular/cdk/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatSnackBarModule,
     MatFormFieldModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    CdkTableModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

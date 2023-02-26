@@ -22,7 +22,7 @@ public class WorldCityService implements WorldCityServiceInterface {
     }
 
     public WorldCity addWorldCity(WorldCity worldCity) {
-        return this.worldCityRepository.save(worldCity);
+        return this.worldCityRepository.saveNewCity(worldCity);
     }
 
     @Override

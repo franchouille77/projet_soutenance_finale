@@ -22,19 +22,15 @@ export class DatasMeteoComponent {
   meteo?: Meteo;
 
   getMeteoByCity(): void {
-    this.meteoService
-      .getMeteoByCity(this.worldCityName.value)
-      //exectution de plusieurs instructions avec next: et complete:
-      .subscribe({
-        next: (data) => (this.meteo = data),
-        complete: () => console.log(this.meteo),
-      });
+    this.meteoService.getMeteoByCity(this.worldCityName.value).subscribe({
+      next: (data) => (this.meteo = data),
+      complete: () => console.log(this.meteo),
+    });
   }
 
   getMeteoByCoords(): void {
     this.meteoService
       .getMeteoByCoords([this.lat.value, this.lon.value])
-      //exectution de plusieurs instructions avec les accolades
       .subscribe((data) => {
         this.meteo = data;
         console.log(data);
@@ -42,17 +38,25 @@ export class DatasMeteoComponent {
   }
 
   getMeteoByGeoloc(): void {
+    navigator.geolocation.getCurrentPosition(
+      function (coords) {
+        alert('Location accessed');
+        console.log('coords', coords);
+      },
+      function () {
+        alert('User not allowed');
+      },
+      { timeout: 10000 }
+    );
     this.ipService.getIpAdress().subscribe((dataIp) =>
       this.ipService.getIpInfo(dataIp.ip).subscribe((dataIpInfo) => {
         this.meteoService
           .getMeteoByCoords(dataIpInfo.loc.split(',', 2))
           .subscribe((dataMeteo) => {
             this.meteo = dataMeteo;
-            console.log('Meteo');
-            console.log(dataMeteo);
+            console.log('Meteo', dataMeteo);
           });
-        console.log('IpInfo');
-        console.log(dataIpInfo);
+        console.log('IpInfo', dataIpInfo);
         this.worldCityName.setValue(dataIpInfo.city);
         this.lat.setValue(dataIpInfo.loc.split(',', 2)[0]);
         this.lon.setValue(dataIpInfo.loc.split(',', 2)[1]);

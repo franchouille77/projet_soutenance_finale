@@ -26,6 +26,9 @@ export class WorldCityComponent {
   addCity() {
     this.meteoService.getMeteoByCity(this.worldCityName.value).subscribe({
       next: (data) => {
+        const regionNamesInFrench = new Intl.DisplayNames(['fr'], {
+          type: 'region',
+        });
         const worldCity: WorldCity = {
           city: data.name,
           city_ascii: data.name,
@@ -37,6 +40,17 @@ export class WorldCityComponent {
         this.worldCity = worldCity;
         this.apiBddService.addWorldCity(worldCity).subscribe((data) => {
           console.log(data);
+          if (data == null) {
+            this.openSnackBar(
+              "Ville déja enregistrée, impossible de l'ajouter à nouveau!",
+              5000
+            );
+          } else {
+            this.openSnackBar(
+              'Ville enregistrée en BDD! (id: ' + data.id + ')',
+              5000
+            );
+          }
         });
       },
       error: () => {
@@ -44,10 +58,6 @@ export class WorldCityComponent {
       },
       complete: () => {
         console.log(this.worldCity);
-        this.openSnackBar(
-          'Ville enregistrée en BDD! (id: ' + this.worldCity?.id + ')',
-          5000
-        );
       },
     });
   }

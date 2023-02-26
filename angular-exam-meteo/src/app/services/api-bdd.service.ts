@@ -12,7 +12,7 @@ export class ApiBddService {
 
   getWorldCityByName(worldCity: WorldCity): Observable<WorldCity> {
     return this.http.post<WorldCity>(
-      'http://localhost:8080/api/getWorldCityByName',
+      'http://localhost:8080/api/getWorldCityByNameAndCountryAndCoords',
       worldCity
     );
   }

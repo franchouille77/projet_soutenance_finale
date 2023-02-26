@@ -53,6 +53,7 @@ public class ApiRestController {
 
     @PostMapping("/getWorldCityByNameAndCountryAndCoords")
     public WorldCity getWorldCityByNameAndCountryAndCoords(@RequestBody WorldCity worldCity) {
+        System.out.println(worldCity);
             return worldCityService.getWorldCityByNameAndCountryAndCoords(worldCity.getCity(), worldCity.getCountry(), worldCity.getLat(), worldCity.getLng());
     }
 
