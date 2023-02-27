@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Temperature } from '../interfaces/temperature';
 import { MeteoService } from '../services/meteo.service';
 import { ApiBddService } from '../services/api-bdd.service';
-import { CountryRecord, countries } from '../citiesCodeRecord';
 import { WorldCity } from '../interfaces/worldCity';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -19,8 +18,6 @@ export class TemperatureComponent {
     private snackBar: MatSnackBar
   ) {}
 
-  cityNamesFromCodes: CountryRecord = countries;
-
   worldCityName = new FormControl();
   temperatureValue = new FormControl();
   worldCity?: WorldCity;
@@ -29,12 +26,15 @@ export class TemperatureComponent {
   getCity() {
     this.meteoService.getMeteoByCity(this.worldCityName.value).subscribe({
       next: (data) => {
+        const regionNamesInFrench = new Intl.DisplayNames(['fr'], {
+          type: 'region',
+        });
         const worldCity: WorldCity = {
           city: data.name,
           city_ascii: data.name,
           lat: data.coord.lat,
           lng: data.coord.lon,
-          country: this.cityNamesFromCodes[data.sys.country],
+          country: regionNamesInFrench.of(data.sys.country) || '', //si pas de nom de pays mettre '' dans country
           iso2: data.sys.country,
         };
         this.worldCity = worldCity;
