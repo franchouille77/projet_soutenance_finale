@@ -30,7 +30,7 @@ export class DatasMeteoComponent {
 
   getMeteoByCoords(): void {
     this.meteoService
-      .getMeteoByCoords([this.lat.value, this.lon.value])
+      .getMeteoByCoords(this.lat.value, this.lon.value)
       .subscribe((data) => {
         this.meteo = data;
         console.log(data);
@@ -38,7 +38,7 @@ export class DatasMeteoComponent {
   }
 
   getMeteoByGeoloc(): void {
-    navigator.geolocation.getCurrentPosition(
+    /*     navigator.geolocation.getCurrentPosition(
       function (coords) {
         alert('Location accessed');
         console.log('coords', coords);
@@ -47,20 +47,20 @@ export class DatasMeteoComponent {
         alert('User not allowed');
       },
       { timeout: 10000 }
-    );
-    this.ipService.getIpAdress().subscribe((dataIp) =>
-      this.ipService.getIpInfo(dataIp.ip).subscribe((dataIpInfo) => {
+    ); */
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log('position', position);
         this.meteoService
-          .getMeteoByCoords(dataIpInfo.loc.split(',', 2))
+          .getMeteoByCoords(position.coords.latitude, position.coords.longitude)
           .subscribe((dataMeteo) => {
             this.meteo = dataMeteo;
+            this.worldCityName.setValue(dataMeteo.name);
             console.log('Meteo', dataMeteo);
           });
-        console.log('IpInfo', dataIpInfo);
-        this.worldCityName.setValue(dataIpInfo.city);
-        this.lat.setValue(dataIpInfo.loc.split(',', 2)[0]);
-        this.lon.setValue(dataIpInfo.loc.split(',', 2)[1]);
-      })
-    );
+        this.lat.setValue(position.coords.latitude);
+        this.lon.setValue(position.coords.longitude);
+      });
+    }
   }
 }

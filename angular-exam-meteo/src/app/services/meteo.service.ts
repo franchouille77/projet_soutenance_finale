@@ -11,9 +11,9 @@ export class MeteoService {
 
   private API_KEY: string = '8118ed6ee68db2debfaaa5a44c832918';
 
-  getMeteoByCoords(loc: string[]): Observable<Meteo> {
+  getMeteoByCoords(lat: number, lon: number): Observable<Meteo> {
     return this.http.get<Meteo>(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${loc[0]}&lon=${loc[1]}&lang=fr&units=metric&appid=` +
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=fr&units=metric&appid=` +
         this.API_KEY
     );
   }
