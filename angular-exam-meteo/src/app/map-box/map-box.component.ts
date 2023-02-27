@@ -6,6 +6,8 @@ import { CustomGeoJson, CustomFeatureCollection } from '../interfaces/map';
 import { FeatureCollection } from 'geojson';
 import { ApiBddService } from '../services/api-bdd.service';
 import { Temperature } from '../interfaces/temperature';
+import { MeteoService } from '../services/meteo.service';
+import { Meteo } from '../interfaces/meteo';
 
 @Component({
   selector: 'app-map-box',
@@ -17,13 +19,12 @@ export class MapBoxComponent {
   style: string = 'mapbox://styles/mapbox/streets-v12'; // style de la carte
   lat: number = 46.5; // latitude à l'initialisation
   lng: number = 2.5; // longitude à l'initialisation
-  message: string = 'Bonjour'; // message à afficher sous le marqueur
 
   source: any; // source pour créer un marqueur (image)
   markers: CustomGeoJson[] = []; // liste des marqueurs
   imageNames: string[] = [];
+  meteos: Meteo[] = [];
 
-  iconId: string = '10d'; // icône représentant la météo
   sourceId: string = 'weather'; // nom par défaut de la source de données
   layerId: string = 'weather-layer'; // nom par défaut du layer
 
@@ -31,7 +32,8 @@ export class MapBoxComponent {
 
   constructor(
     private mapService: MapService,
-    private apiBddService: ApiBddService
+    private apiBddService: ApiBddService,
+    private meteoService: MeteoService
   ) {}
 
   ngOnInit() {
@@ -49,12 +51,19 @@ export class MapBoxComponent {
       },
       complete: () => {
         this.temperatures?.forEach((temp) => {
-          this.iconId = 'blue';
+          let msg: string =
+            temp.worldCity.city +
+            '\n' +
+            temp.value +
+            '°C\n' +
+            temp.feelslike +
+            ' ressentis\n' +
+            temp.description;
           this.markers.push(
             new CustomGeoJson(
               [temp.worldCity.lng, temp.worldCity.lat],
               temp.id,
-              { message: temp.worldCity.city, image: this.iconId }
+              { message: msg, image: temp.icon }
             )
           );
         });
@@ -119,16 +128,33 @@ export class MapBoxComponent {
           event.lngLat.lng,
           event.lngLat.lat,
         ];
-        console.log('clickcoords', coordinates);
-        // création d'un nouveau marqueur
-        const newMarker = new CustomGeoJson(coordinates, undefined, {
-          message: this.message,
-          image: this.iconId,
-        });
+        console.log('clickcoords', coordinates[0]);
 
-        this.markers.push(newMarker);
-
-        this.setMarkers();
+        this.meteoService
+          .getMeteoByCoords(coordinates[1], coordinates[0])
+          .subscribe({
+            next: (data) => {
+              console.log('meteo point', data);
+              this.meteos.push(data);
+              //ici il faut récupérer une worldCity en BDD ou l'ajouter si non déja présente
+              let msg: string =
+                data.name +
+                '\n' +
+                data.main.temp +
+                '°C\n' +
+                data.main.feels_like +
+                ' ressentis\n' +
+                data.weather[0].description;
+              // création d'un nouveau marqueur
+              this.markers.push(
+                new CustomGeoJson(coordinates, undefined, {
+                  message: msg,
+                  image: data.weather[0].icon,
+                })
+              );
+              this.setMarkers();
+            },
+          });
 
         // ajout du marqueur en base de données
         /*  this.mapService.createMarker(newMarker).subscribe((data) => {
@@ -200,7 +226,7 @@ export class MapBoxComponent {
   }
 
   loadImage(imgId: string) {
-    let url: string = `https://weather-icons.cleverapps.io/weather/markers/marker-${imgId}.png`;
+    let url: string = `https://weather-icons.cleverapps.io/weather/icons/${imgId}.png`;
     console.log(imgId);
     // Vérification si l'image est déjà chargée ou non
     if (imgId in this.imageNames) return;

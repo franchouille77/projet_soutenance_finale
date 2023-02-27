@@ -1,1 +1,11 @@
+<div class="sidebar">
+  <h3>Markers</h3>
+  <!-- Liste des marqueurs enregistrés -->
+  <div id="listings" class="listings" *ngFor="let marker of markers">
+    <!-- Déplacement vers un marqueur -->
+    <button class="button" (click)="flyTo(marker)">
+      {{ marker.properties.message.split("\n")[0] }}
+    </button>
+  </div>
+</div>
 <div id="map" class="map"></div>

@@ -1,7 +1,20 @@
 .map {
   position: absolute;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 15%;
   height: 75%;
-  width: 90%;
+  width: 83%;
+}
+
+.sidebar {
+  position: absolute;
+  width: 25%;
+  height: 70%;
+  left: 0;
+  padding-left: 10px;
+  overflow: hidden;
+}
+
+.button {
+  margin-bottom: 5px;
 }

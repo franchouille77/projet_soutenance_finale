@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'addTemperature', component: TemperatureComponent },
   { path: 'listTemperatures', component: TemperaturesListComponent },
   { path: 'tempDetails', component: TemperaturesDetailsComponent },
+  { path: '', redirectTo: '/datasMeteo', pathMatch: 'full' },
 ];
 
 @NgModule({

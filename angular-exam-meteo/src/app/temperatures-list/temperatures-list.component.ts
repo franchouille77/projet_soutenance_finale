@@ -15,7 +15,13 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./temperatures-list.component.css'],
 })
 export class TemperaturesListComponent {
-  displayedColumns: string[] = ['id', 'value', 'timestamp', 'worldCity.city'];
+  displayedColumns: string[] = [
+    'id',
+    'value',
+    'timestamp',
+    'worldCity.city',
+    'icon',
+  ];
   temperatures: Temperature[] = [];
   temperaturesSource: MatTableDataSource<Temperature> = new MatTableDataSource(
     this.temperatures

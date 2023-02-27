@@ -1,4 +1,4 @@
-<h2>List Temperatures BDD:</h2>
+<h2>Liste temperatures enregistrées:</h2>
 
 <div class="header">
   <mat-form-field>
@@ -28,6 +28,18 @@
     <ng-container matColumnDef="worldCity.city">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Ville</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.worldCity.city }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="icon">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Aperçu</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        <img
+          src="https://weather-icons.cleverapps.io/weather/icons/{{
+            row.icon
+          }}.png"
+      /></mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
