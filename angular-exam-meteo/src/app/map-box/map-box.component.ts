@@ -15,8 +15,8 @@ import { Temperature } from '../interfaces/temperature';
 export class MapBoxComponent {
   map!: Map; // la carte
   style: string = 'mapbox://styles/mapbox/streets-v12'; // style de la carte
-  lat: number = 46.2276; // latitude à l'initialisation
-  lng: number = 2.2137; // longitude à l'initialisation
+  lat: number = 46.5; // latitude à l'initialisation
+  lng: number = 2.5; // longitude à l'initialisation
   message: string = 'Bonjour'; // message à afficher sous le marqueur
 
   source: any; // source pour créer un marqueur (image)
@@ -86,6 +86,7 @@ export class MapBoxComponent {
         // avec un effet de dézoom suivi d'un zoom
         this.map.flyTo({
           center: [this.lng, this.lat],
+          zoom: 13,
         });
       });
     }
@@ -100,7 +101,7 @@ export class MapBoxComponent {
       accessToken: environment.mapbox.accessToken,
       container: 'map', // référence à la div dans le document HTML
       style: this.style,
-      zoom: 13,
+      zoom: 5,
       center: [this.lng, this.lat],
     });
 
@@ -200,22 +201,17 @@ export class MapBoxComponent {
 
   loadImage(imgId: string) {
     let url: string = `https://weather-icons.cleverapps.io/weather/markers/marker-${imgId}.png`;
-    console.log('load img');
     console.log(imgId);
     // Vérification si l'image est déjà chargée ou non
     if (imgId in this.imageNames) return;
 
     // téléchargement de l'image
-    this.map.loadImage(
-      // `assets/marker-icons/mapbox-marker-icon-20px-${color}.png`,
-      url,
-      (error, image) => {
-        if (error) throw error;
+    this.map.loadImage(url, (error, image) => {
+      if (error) throw error;
 
-        this.map.addImage(imgId, image!);
-        this.imageNames.push(imgId);
-      }
-    );
+      this.map.addImage(imgId, image!);
+      this.imageNames.push(imgId);
+    });
   }
 
   // suppression du marqueur de la base de données et de la carte
@@ -232,6 +228,7 @@ export class MapBoxComponent {
   flyTo(data: CustomGeoJson) {
     this.map.flyTo({
       center: data.geometry.coordinates,
+      zoom: 13,
     });
   }
 }

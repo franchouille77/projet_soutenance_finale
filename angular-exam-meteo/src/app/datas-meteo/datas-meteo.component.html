@@ -1,33 +1,63 @@
-<h2>Météo par nom de ville</h2>
-<mat-form-field appearance="fill">
-  <mat-label for="worldCityName">Rechercher une ville : </mat-label>
-  <input
-    matInput
-    id="worldCityName"
-    type="text"
-    [formControl]="worldCityName"
-  />
-</mat-form-field>
-<button mat-raised-button color="primary" (click)="getMeteoByCity()">
-  Chercher
-</button>
+<div class="container">
+  <div class="leftPanel">
+    <h2>Météo par géolocalisation</h2>
+    <button class="button" (click)="getMeteoByGeoloc()">New Request</button>
 
-<h2>Ajouter un loader ou des balises d'affichages sous chaque bouton</h2>
+    <h2>Météo par nom de ville</h2>
+    <mat-form-field appearance="fill">
+      <mat-label for="worldCityName">Rechercher une ville : </mat-label>
+      <input
+        matInput
+        id="worldCityName"
+        type="text"
+        [formControl]="worldCityName"
+      />
+    </mat-form-field>
+    <button
+      class="button"
+      mat-raised-button
+      color="primary"
+      (click)="getMeteoByCity()"
+    >
+      Chercher
+    </button>
 
-<h2>Météo par coordonnées géographiques</h2>
-<label for="lat">Latitude : </label>
-<input id="lat" type="text" [formControl]="lat" />
-<label for="lon">Longitude : </label>
-<input id="lon" type="text" [formControl]="lon" />
-<button (click)="getMeteoByCoords()">New Request</button>
+    <h2 class="headline-2">Météo par coordonnées géographiques</h2>
 
-<h2>Météo par géolocalisation</h2>
-<button (click)="getMeteoByGeoloc()">New Request</button>
+    <mat-form-field appearance="fill">
+      <mat-label for="lat">Latitude : </mat-label>
+      <input matInput id="lat" type="text" [formControl]="lat" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label for="lon">Longitude : </mat-label>
+      <input matInput id="lon" type="text" [formControl]="lon" />
+    </mat-form-field>
 
-<div *ngIf="meteo">
-  <p>
-    Ville: {{ meteo.name }}<br />
-    {{ meteo.weather[0].description }} avec une température de
-    {{ meteo.main.temp }}°C pour un ressenti de {{ meteo.main.feels_like }}°C.
-  </p>
+    <button class="button" (click)="getMeteoByCoords()">New Request</button>
+  </div>
+  <div>
+    <div *ngIf="worldCity">
+      <h2>Infos Ville</h2>
+      <div>
+        <p>
+          Ville : {{ worldCity.city }}<br />
+          Latitude : {{ worldCity.lat }}<br />
+          Longitude : {{ worldCity.lng }}<br />
+          Code pays : {{ worldCity.iso2 }}<br />
+          Nom pays : {{ worldCity.country }}<br />
+        </p>
+      </div>
+      <div>
+        <button (click)="addCity()">Enregistrer la ville</button>
+      </div>
+    </div>
+    <div *ngIf="meteo">
+      <h2>Infos météo</h2>
+      <p>
+        {{ meteo.weather[0].description }} avec une température de
+        {{ meteo.main.temp }}°C pour un ressenti de
+        {{ meteo.main.feels_like }}°C.
+      </p>
+    </div>
+  </div>
 </div>

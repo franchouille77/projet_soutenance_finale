@@ -21,6 +21,8 @@ public class Temperature {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Float value;
+
+	private String icon;
 	@Temporal(TemporalType.TIME)
 	private Date timestamp;
 
@@ -28,8 +30,9 @@ public class Temperature {
 	@JoinColumn(name = "city_id", referencedColumnName = "id")
 	private WorldCity worldCity;
 
-	public Temperature(Float value, Date timestamp, WorldCity worldCity) {
+	public Temperature(Float value, String icon, Date timestamp, WorldCity worldCity) {
 		this.value = value;
+		this.icon = icon;
 		this.timestamp = timestamp;
 		this.worldCity = worldCity;
 	}
@@ -47,6 +50,18 @@ public class Temperature {
 
 	public void setValue(Float value) {
 		this.value = value;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	public Date getTimestamp() {
@@ -67,8 +82,12 @@ public class Temperature {
 
 	@Override
 	public String toString() {
-		return "Temperature [id=" + id + ", value=" + value + ", timestamp=" + timestamp + ", worldCity=" + worldCity
-				+ "]";
+		return "Temperature{" +
+				"id=" + id +
+				", value=" + value +
+				", icon='" + icon + '\'' +
+				", timestamp=" + timestamp +
+				", worldCity=" + worldCity +
+				'}';
 	}
-
 }
