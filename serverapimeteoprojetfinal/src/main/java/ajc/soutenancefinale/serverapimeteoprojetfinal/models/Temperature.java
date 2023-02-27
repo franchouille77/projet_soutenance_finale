@@ -22,6 +22,10 @@ public class Temperature {
 	private Long id;
 	private Float value;
 
+	private Float feelslike;
+
+	private String description;
+
 	private String icon;
 	@Temporal(TemporalType.TIME)
 	private Date timestamp;
@@ -30,14 +34,32 @@ public class Temperature {
 	@JoinColumn(name = "city_id", referencedColumnName = "id")
 	private WorldCity worldCity;
 
-	public Temperature(Float value, String icon, Date timestamp, WorldCity worldCity) {
+	public Temperature(Float value, Float feelslike, String description, String icon, Date timestamp, WorldCity worldCity) {
 		this.value = value;
+		this.feelslike = feelslike;
+		this.description = description;
 		this.icon = icon;
 		this.timestamp = timestamp;
 		this.worldCity = worldCity;
 	}
 
 	public Temperature() {
+	}
+
+	public Float getFeelslike() {
+		return feelslike;
+	}
+
+	public void setFeelslike(Float feelslike) {
+		this.feelslike = feelslike;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Long getId() {

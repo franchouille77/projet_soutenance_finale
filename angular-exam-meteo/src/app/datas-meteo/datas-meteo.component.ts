@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { WorldCity } from '../interfaces/worldCity';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiBddService } from '../services/api-bdd.service';
+import { Temperature } from '../interfaces/temperature';
 
 @Component({
   selector: 'app-datas-meteo',
@@ -24,6 +25,7 @@ export class DatasMeteoComponent {
 
   meteo?: Meteo;
   worldCity?: WorldCity;
+  imgLink?: String;
 
   getMeteoByCity(): void {
     this.meteoService.getMeteoByCity(this.worldCityName.value).subscribe({
@@ -43,24 +45,19 @@ export class DatasMeteoComponent {
   getMeteoByCoords(): void {
     this.meteoService
       .getMeteoByCoords(this.lat.value, this.lon.value)
-      .subscribe((data) => {
-        this.meteo = data;
-        this.showWorldCity(this.meteo);
-        console.log(data);
+      .subscribe({
+        next: (data) => {
+          this.meteo = data;
+          this.showWorldCity(this.meteo);
+          console.log(data);
+        },
+        error: () => {
+          this.openSnackBar('Entrez des coordonnées valides!', 5000);
+        },
       });
   }
 
   getMeteoByGeoloc(): void {
-    /*     navigator.geolocation.getCurrentPosition(
-      function (coords) {
-        alert('Location accessed');
-        console.log('coords', coords);
-      },
-      function () {
-        alert('User not allowed');
-      },
-      { timeout: 10000 }
-    ); */
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         console.log('position', position);
@@ -93,6 +90,44 @@ export class DatasMeteoComponent {
             5000
           );
         }
+      });
+    }
+  }
+
+  addTemperature() {
+    if (this.worldCity && this.meteo) {
+      this.apiBddService.getWorldCityByName(this.worldCity).subscribe({
+        next: (data) => {
+          if (data.id == null)
+            this.openSnackBar(
+              "La ville n'est pas enregistrée en BDD. Enregistrez cette ville pour pouvoir enregistrer ça météo!",
+              10000
+            );
+          else {
+            this.worldCity = data;
+            if (this.meteo) {
+              const temperature: Temperature = {
+                value: this.meteo.main.temp,
+                feelslike: this.meteo.main.feels_like,
+                description: this.meteo.weather[0].description,
+                icon: this.meteo.weather[0].icon,
+                worldCity: this.worldCity,
+              };
+              console.log(temperature);
+              this.apiBddService.addTemperature(temperature).subscribe({
+                next: (data) => {
+                  console.log(data);
+                  if (data.id) {
+                    this.openSnackBar(
+                      'Météo enregistrée en BDD! (id: ' + data.id + ')',
+                      5000
+                    );
+                  }
+                },
+              });
+            }
+          }
+        },
       });
     }
   }

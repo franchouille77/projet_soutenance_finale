@@ -71,6 +71,9 @@ export class TemperatureComponent {
     if (this.worldCity && this.temperatureValue.value && this.worldCity?.id) {
       const temperature: Temperature = {
         value: this.temperatureValue.value,
+        feelslike: 0,
+        description: '',
+        icon: '',
         worldCity: this.worldCity,
       };
       this.temperature = temperature;

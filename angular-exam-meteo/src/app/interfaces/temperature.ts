@@ -4,6 +4,8 @@ export interface Temperature {
   id?: number;
   timestamp?: number;
   value: number;
-  icon?: string;
+  icon: string;
+  feelslike: number;
+  description: string;
   worldCity: WorldCity;
 }

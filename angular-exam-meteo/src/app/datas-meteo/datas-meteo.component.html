@@ -1,7 +1,7 @@
 <div class="container">
   <div class="leftPanel">
     <h2>Météo par géolocalisation</h2>
-    <button class="button" (click)="getMeteoByGeoloc()">New Request</button>
+    <button class="button" (click)="getMeteoByGeoloc()">Me localiser</button>
 
     <h2>Météo par nom de ville</h2>
     <mat-form-field appearance="fill">
@@ -33,7 +33,7 @@
       <input matInput id="lon" type="text" [formControl]="lon" />
     </mat-form-field>
 
-    <button class="button" (click)="getMeteoByCoords()">New Request</button>
+    <button class="button" (click)="getMeteoByCoords()">Chercher</button>
   </div>
   <div>
     <div *ngIf="worldCity">
@@ -53,11 +53,17 @@
     </div>
     <div *ngIf="meteo">
       <h2>Infos météo</h2>
+      <img
+        src="https://weather-icons.cleverapps.io/weather/icons/{{
+          meteo.weather[0].icon
+        }}.png"
+      />
       <p>
         {{ meteo.weather[0].description }} avec une température de
         {{ meteo.main.temp }}°C pour un ressenti de
         {{ meteo.main.feels_like }}°C.
       </p>
+      <button (click)="addTemperature()">Enregistrer la météo</button>
     </div>
   </div>
 </div>
