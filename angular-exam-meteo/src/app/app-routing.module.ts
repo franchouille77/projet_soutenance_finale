@@ -5,10 +5,11 @@ import { TemperatureComponent } from './temperature/temperature.component';
 import { TemperaturesDetailsComponent } from './temperatures-details/temperatures-details.component';
 import { TemperaturesListComponent } from './temperatures-list/temperatures-list.component';
 import { WorldCityComponent } from './world-city/world-city.component';
-import { Temperature } from './interfaces/temperature';
+import { MapBoxComponent } from './map-box/map-box.component';
 
 const routes: Routes = [
   { path: 'datasMeteo', component: DatasMeteoComponent },
+  { path: 'mapBox', component: MapBoxComponent },
   { path: 'addWorldCity', component: WorldCityComponent },
   { path: 'addTemperature', component: TemperatureComponent },
   { path: 'listTemperatures', component: TemperaturesListComponent },

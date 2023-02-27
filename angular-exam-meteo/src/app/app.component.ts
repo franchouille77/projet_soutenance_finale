@@ -10,6 +10,7 @@ export class AppComponent {
 
   routes = [
     { label: 'Météo', link: '/datasMeteo' },
+    { label: 'Carte', link: '/mapBox' },
     { label: 'Ajouter une ville', link: '/addWorldCity' },
     { label: 'Ajouter une température', link: '/addTemperature' },
     {

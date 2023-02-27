@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MeteoService } from '../services/meteo.service';
 import { Meteo } from '../interfaces/meteo';
-import { IpService } from '../services/ip.service';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -10,10 +9,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./datas-meteo.component.css'],
 })
 export class DatasMeteoComponent {
-  constructor(
-    private meteoService: MeteoService,
-    private ipService: IpService
-  ) {}
+  constructor(private meteoService: MeteoService) {}
 
   worldCityName = new FormControl();
   lat = new FormControl();
