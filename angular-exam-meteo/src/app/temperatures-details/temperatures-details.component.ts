@@ -27,8 +27,8 @@ export class TemperaturesDetailsComponent {
         next: () => {
           this.openSnackBar('Suppression éffectuée!', 2000);
           setTimeout(() => {
-            this.router.navigate(['/tempDetails']);
-          }, 1000);
+            this.router.navigate(['/listTemperatures']);
+          }, 3000);
         },
         error: () => {
           this.openSnackBar('Erreur lors de la supression!', 5000);
