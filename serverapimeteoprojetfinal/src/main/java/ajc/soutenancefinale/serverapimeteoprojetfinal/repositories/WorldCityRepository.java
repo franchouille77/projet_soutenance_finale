@@ -10,6 +10,7 @@ import ajc.soutenancefinale.serverapimeteoprojetfinal.models.WorldCity;
 
 @Repository
 public interface WorldCityRepository extends JpaRepository<WorldCity, Long> {
+    //Haversine
 
     //SELECT c FROM WorldCities c WHERE c.city = :city AND c.country = :country AND (6371 * FUNCTION('acos', FUNCTION('cos', FUNCTION('radians', c.lat)) * FUNCTION('cos', FUNCTION('radians', :latitude)) * FUNCTION('cos', FUNCTION('radians', :longitude) - FUNCTION('radians', c.lng)) + FUNCTION('sin', FUNCTION('radians', c.lat)) * FUNCTION('sin', FUNCTION('radians', :latitude)))) < 10 ORDER BY distance;
 

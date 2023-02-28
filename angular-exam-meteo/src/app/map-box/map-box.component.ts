@@ -57,7 +57,7 @@ export class MapBoxComponent {
             temp.value +
             '°C\n' +
             temp.feelslike +
-            ' ressentis\n' +
+            '°C ressentis\n' +
             temp.description;
           this.markers.push(
             new CustomGeoJson(
@@ -143,7 +143,7 @@ export class MapBoxComponent {
                 data.main.temp +
                 '°C\n' +
                 data.main.feels_like +
-                ' ressentis\n' +
+                '°C ressentis\n' +
                 data.weather[0].description;
               // création d'un nouveau marqueur
               this.markers.push(
