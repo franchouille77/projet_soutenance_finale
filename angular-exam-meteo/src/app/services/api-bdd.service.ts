@@ -31,6 +31,12 @@ export class ApiBddService {
     );
   }
 
+  deleteTemperature(id: number): Observable<void> {
+    return this.http.get<void>(
+      'http://localhost:8080/api/deleteTemperatureById?id=' + id
+    );
+  }
+
   getAllTemperatures(): Observable<Temperature[]> {
     return this.http.get<Temperature[]>(
       'http://localhost:8080/api/getAllTemperatures'

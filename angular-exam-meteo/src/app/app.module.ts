@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MapBoxComponent } from './map-box/map-box.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MapBoxComponent } from './map-box/map-box.component';
     MapBoxComponent,
   ],
   imports: [
+    MatIconModule,
     MatTabsModule,
     MatInputModule,
     MatSnackBarModule,

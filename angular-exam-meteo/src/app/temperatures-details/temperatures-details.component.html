@@ -1,5 +1,5 @@
-<h2>Details Temperature séléctionnée:</h2>
-<div>
+<h2 class="parent">Details Temperature séléctionnée:</h2>
+<div class="parent">
   <p>
     Temperature id : {{ temp?.id }}<br />
     Date et heure du relevé : {{ temp?.timestamp }}<br />
@@ -10,7 +10,12 @@
     Code pays : {{ temp?.worldCity?.iso2 }}<br />
     Nom pays : {{ temp?.worldCity?.country }}<br />
   </p>
+
   <img
     src="https://weather-icons.cleverapps.io/weather/icons/{{ temp?.icon }}.png"
   />
+
+  <button mat-fab color="warn" (click)="deleteTemp(temp?.id)">
+    <mat-icon>delete</mat-icon>
+  </button>
 </div>

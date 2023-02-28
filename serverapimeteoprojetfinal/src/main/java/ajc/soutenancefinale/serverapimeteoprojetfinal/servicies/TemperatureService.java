@@ -30,5 +30,7 @@ public class TemperatureService implements TemperatureServiceInterface {
 	public Temperature addTemperature(Temperature temperature) {
 		return temperatureRepository.save(temperature);
 	}
+	@Override
+	public void deleteTemperatureById(Long id){temperatureRepository.deleteById(id);};
 
 }

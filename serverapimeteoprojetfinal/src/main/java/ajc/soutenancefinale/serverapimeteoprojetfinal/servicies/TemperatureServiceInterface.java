@@ -12,4 +12,6 @@ public interface TemperatureServiceInterface {
 
 	public Temperature addTemperature(Temperature temperature);
 
+	public void deleteTemperatureById(Long id);
+
 }
